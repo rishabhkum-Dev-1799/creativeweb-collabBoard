@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+      integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>CollabBoard</title>
+  </head>
+  <body>
+    <main>
+      <section class="header-wrapper">
+        <section class="menu-cont">
+          <i class="fa-solid fa-bars menu-icon"></i>
+        </section>
+        <section class="tools-cont">
+          <div>
+            <img class="pencil" src="./icons/Pencil.svg" />
+            <div class="tool-options pencil-options">
+              <div class="slider">
+                <input type="range" min="2" max="10" value="3" />
+              </div>
+              <div class="color-pallete">
+                <div class="white pencil-color"></div>
+                <div class="red pencil-color"></div>
+                <div class="green pencil-color"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img class="eraser" src="./icons/Eraser.svg" />
+            <div class="tool-options eraser-options">
+              <div class="slider">
+                <input type="range" min="2" max="10" value="3" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <img class="sticky-notes" src="./icons/StickyNote.svg" />
+          </div>
+          <div>
+            <img class="download" src="./icons/Download.svg" />
+          </div>
+          <div>
+            <img class="upload" src="./icons/Upload.svg" />
+          </div>
+          <div>
+            <img class="undo" src="./icons/Undo.svg" />
+          </div>
+          <div>
+            <img class="redo" src="./icons/Redo.svg" />
+          </div>
+        </section>
+      </section>
+      <!-- <div class="sticky-note-cont">
+        <div class="sticky-note-header">
+          <div class="sticky-note-minimize"></div>
+          <div class="sticky-note-close"></div>
+        </div>
+        <div class="sticky-note-body">
+          <textarea name="sticky-note-input" class="sticky-note-textarea">
+          </textarea>
+        </div>
+      </div> -->
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
