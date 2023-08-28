@@ -21,32 +21,63 @@ const closeTools = () => {
   menu_icon.classList.add('fa-times');
   tools_cont.style.visibility = 'hidden';
 };
-const stickyNoteActions = (minimize,close,container) => {
-    close.addEventListener('click',()=>{
-        container.remove();
-    })
-    minimize.addEventListener('click',()=>{
-        const stickyNoteBody=container.querySelector('.sticky-note-body');
-        const display=getComputedStyle(stickyNoteBody).getPropertyValue('display');
-        if(display==='none'){
-            stickyNoteBody.style.display='block';
-        }
-        else{
-            stickyNoteBody.style.display='none';
-        }
-    })
+// sticky note minimize and close actions
+const stickyNoteActions = (minimize, close, container) => {
+  close.addEventListener('click', () => {
+    container.remove();
+  });
+  minimize.addEventListener('click', () => {
+    const stickyNoteBody = container.querySelector('.sticky-note-body');
+    const display =
+      getComputedStyle(stickyNoteBody).getPropertyValue('display');
+    if (display === 'none') {
+      stickyNoteBody.style.display = 'block';
+    } else {
+      stickyNoteBody.style.display = 'none';
+    }
+  });
 };
-
+// sticky notes drag and drop functionality
+const drag_Drop_functionality = (element, event) => {
+  // element.getBoundingClientRect() gives the coordinate of the element in the viewport
+  // event provides us the data of the cartesian coordinate where the user the clicked on the view port
+  let shiftX = event.clientX - element.getBoundingClientRect().left;
+  let shiftY = event.clientY - element.getBoundingClientRect().top;
+  element.style.position = 'absolute';
+  element.style.zIndex = 1000;
+  //helper functions
+  const moveAt = (pageX, pageY) => {
+    element.style.left = pageX - shiftX + 'px';
+    element.style.top = pageY - shiftY + 'px';
+  };
+  const onMouseMove = (event) => {
+    moveAt(event.pageX, event.pageY);
+  };
+  moveAt(event.pageX, event.pageY);
+  element.addEventListener('mousemove', onMouseMove);
+  element.onmouseup = function () {
+    element.removeEventListener('mousemove', onMouseMove);
+    element.onmouseup = null;
+  };
+};
+// create sticky notes
 const createStickyNote = (stickyNoteTemplate) => {
   const stickyCont = document.createElement('div');
   stickyCont.classList.add('sticky-note-cont');
   stickyCont.innerHTML = stickyNoteTemplate;
   document.body.append(stickyCont);
-  const minimizeStickyNote = document.querySelector('.sticky-note-minimize');
-  const closeStickyNote = document.querySelector('.sticky-note-close');
-  stickyNoteActions(minimizeStickyNote, closeStickyNote, stickyCont);
+  const minimizeStickyNote = stickyCont.querySelector('.sticky-note-minimize');
+  const closeStickyNote = stickyCont.querySelector('.sticky-note-close');
+  const headerStickyNote = stickyCont.querySelector('.sticky-note-header');
+  stickyNoteActions(minimizeStickyNote, closeStickyNote,stickyCont);
+ stickyCont.onmousedown = function (event) {
+    drag_Drop_functionality(stickyCont, event);
+  };
+  stickyCont.ondragstart=function(){
+    return false;
+  }
 };
-const drag_Drop_functionality = () => {};
+
 //Event Listeners
 menu_icon.addEventListener('click', () => {
   showToolsFlag = !showToolsFlag;
