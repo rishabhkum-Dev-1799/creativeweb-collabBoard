@@ -5,6 +5,7 @@ const eraser_icon = document.querySelector('.eraser');
 const pencil_options = document.querySelector('.pencil-options');
 const eraser_options = document.querySelector('.eraser-options');
 const stickyNote_icon = document.querySelector('.sticky-notes');
+const upload_icon=document.querySelector('.upload');
 //state variables
 let showToolsFlag = true;
 let pencilOptionsFlag = false;
@@ -69,13 +70,13 @@ const createStickyNote = (stickyNoteTemplate) => {
   const minimizeStickyNote = stickyCont.querySelector('.sticky-note-minimize');
   const closeStickyNote = stickyCont.querySelector('.sticky-note-close');
   const headerStickyNote = stickyCont.querySelector('.sticky-note-header');
-  stickyNoteActions(minimizeStickyNote, closeStickyNote,stickyCont);
- stickyCont.onmousedown = function (event) {
+  stickyNoteActions(minimizeStickyNote, closeStickyNote, stickyCont);
+  stickyCont.onmousedown = function (event) {
     drag_Drop_functionality(stickyCont, event);
   };
-  stickyCont.ondragstart=function(){
+  stickyCont.ondragstart = function () {
     return false;
-  }
+  };
 };
 
 //Event Listeners
@@ -115,4 +116,24 @@ stickyNote_icon.addEventListener('click', () => {
         </div>
 `;
   createStickyNote(stickyNoteTemplate);
+});
+upload_icon.addEventListener('click', (event) => {
+  const fileInput = document.createElement('input');
+  fileInput.setAttribute('type', 'file');
+  fileInput.click();
+  fileInput.addEventListener('change', (event) => {
+    const uploadedFile = fileInput.files[0]
+    const imageUrl = URL.createObjectURL(uploadedFile);
+    const uploadNoteTemplate = `
+    <div class="sticky-note-header">
+      <div class="sticky-note-minimize"></div>
+      <div class="sticky-note-close"></div>
+    </div>
+    <div class="sticky-note-body">
+      <img src="${imageUrl}"/>
+    </div>
+`;
+    createStickyNote(uploadNoteTemplate)
+  })
+
 });
